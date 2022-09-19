@@ -23,7 +23,9 @@ class HomeController extends AbstractController
             'ervrevrever',
             'ververv',
             'ervevervev verfef rferf'
-            ];
+        ];
+
+        dump($this );
 
         return $this->render('home/documentation.html.twig', [
             'content' => sprintf('dupa blada "%s"', $slug),
