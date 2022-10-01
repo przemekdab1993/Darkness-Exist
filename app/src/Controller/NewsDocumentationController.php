@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,7 +88,7 @@ class NewsDocumentationController extends AbstractController
     }
 
     #[Route('/comments/{id}/vote/{derection<up|down>}', name : 'comment_vote', methods: ['POST'])]
-    public function commentVote($id, $derection)
+    public function commentVote($id, $derection, LoggerInterface $logger)
     {
         foreach ($this->comments as $index => $comment) {
             if ($comment['id'] == $id) {
@@ -96,9 +97,13 @@ class NewsDocumentationController extends AbstractController
                 if ($derection === 'up') {
                     $currentVoteGoodCount = ++$comment['voteUp'];
                     $currentVoteBadCount = $comment['voteDown'];
+
+                    $logger->info('Voting up in comment id: '.$id);
                 } else {
                     $currentVoteGoodCount = $comment['voteUp'];
                     $currentVoteBadCount= ++$comment['voteDown'];
+
+                    $logger->info('Voting down in comment id: '.$id);
                 }
 
                 return $this->json([
