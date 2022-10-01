@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block body %}
+    <div class="container-content">
+        <div class="news-documentation">
+            <div class="news-documentation-content">
+                <h1>{{ news.title }}</h1>
+                <p>{{ news.content }}</p>
+            </div>
+           <div class="news-documentation-comments">
+               <h3>Comments ({{ comments | length }})</h3>
+               <ul>
+                   {% for comment in comments %}
+                       <li>
+                           <div class="comment-container">
+                               <div class="comment-content">
+                                   <span>Author: {{ comment.author }}</span>
+                                   <p>{{ comment.content }}</p>
+                               </div>
+                               <div class="comment-vote js-vote-arrows">
+                                   <span id="vote-count-up-{{ comment.id }}" class="js-vote-up">{{ comment.voteUp }}</span>
+                                   <a class="vote-up" href="#" data-id="{{ comment.id }}" data-direction="up" > Up</a>
+                                   <span id="vote-count-down-{{ comment.id }}" class="js-vote-down">{{ comment.voteDown }}</span>
+                                   <a class="vote-down" href="#" data-id="{{ comment.id }}" data-direction="down" > Down</a>
+
+                               </div>
+                           </div>
+                       </li>
+                   {% endfor %}
+               </ul>
+           </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts_endbody %}
+    {{ parent() }}
+    <script src="{{ asset('asset/js/news_documentation.js') }}"></script>
+{% endblock %}

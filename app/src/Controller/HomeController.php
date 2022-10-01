@@ -13,23 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function homepage(): Response
     {
-        return new Response("hnunj");
+        return $this->render('home/homepage.html.twig' , []);
     }
 
-    #[Route('documentation/{slug}', name: 'doc')]
-    public function show($slug): Response
-    {
-        $paragrafs = [
-            'ervrevrever',
-            'ververv',
-            'ervevervev verfef rferf'
-        ];
-
-        dump($this );
-
-        return $this->render('home/documentation.html.twig', [
-            'content' => sprintf('dupa blada "%s"', $slug),
-            'paragrafs' => $paragrafs
-        ]);
-    }
 }
